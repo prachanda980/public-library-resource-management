@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="book_return_history_form_view" model="ir.ui.view">
+        <field name="name">book.return.history.form</field>
+        <field name="model">book.return.history</field>
+        <field name="arch" type="xml">
+            <form string="Book Return History">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="borrow_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="book_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="borrower_id" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="return_date" readonly="1"/>
+                            <field name="processed_by" readonly="1" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="book_return_history_tree_view" model="ir.ui.view">
+        <field name="name">book.return.history.tree</field>
+        <field name="model">book.return.history</field>
+        <field name="arch" type="xml">
+            <tree string="Book Return History">
+                <field name="borrow_id"/>
+                <field name="book_id"/>
+                <field name="borrower_id"/>
+                <field name="return_date"/>
+                <field name="processed_by"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_book_return_history" model="ir.actions.act_window">
+        <field name="name">Book Return History</field>
+        <field name="res_model">book.return.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No book return history records found.
+            </p>
+        </field>
+    </record>
+</odoo>

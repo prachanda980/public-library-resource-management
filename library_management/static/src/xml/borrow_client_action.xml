@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="borrow_client_action" xml:space="preserve">
+    <t t-name="library_management.BorrowClientAction">
+        <div class="o_borrow_client_action container">
+            <h2>Borrow a Book</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="o_borrow_form">
+                        <div class="form-group">
+                            <label for="barcode">Barcode</label>
+                            <input type="text" id="barcode" class="form-control" placeholder="Scan or enter barcode" t-att-value="barcode || ''"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Book Title</label>
+                            <input type="text" class="form-control" t-att-value="book_name || ''" readonly="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input type="text" class="form-control" t-att-value="book_author || ''" readonly="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>ISBN</label>
+                            <input type="text" class="form-control" t-att-value="book_isbn || ''" readonly="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>User</label>
+                            <input type="text" class="form-control" t-att-value="user_name || ''" readonly="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Library Branch</label>
+                            <input type="text" class="form-control" t-att-value="library_name || ''" readonly="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Return Date</label>
+                            <input type="datetime-local" id="return_date" class="form-control" t-att-value="return_date || ''"/>
+                        </div>
+                        <button type="button" class="btn btn-primary o_confirm_borrow">Borrow</button>
+                        <button type="button" class="btn btn-secondary o_clear_form ml-2">Clear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <style>
+            .o_borrow_client_action {
+                padding: 20px;
+            }
+            .o_borrow_form {
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 5px;
+            }
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .btn {
+                min-width: 100px;
+            }
+        </style>
+    </t>
+</templates>

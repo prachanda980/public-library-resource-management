@@ -1,0 +1,121 @@
+<!-- QWeb Template -->
+<template id="room_reservation_calendar_template" name="Room Reservation Calendar">
+    <t t-name="library_management.room_reservation_calendar">
+        <div class="oe_room_reservation_calendar">
+            <div class="o_filters">
+                <select class="o_library_filter" t-if="user_has_group('library_management.group_admin_user')">
+                    <option value="">All Libraries</option>
+                    <t t-foreach="libraries" t-as="library">
+                        <option t-att-value="library.id" t-esc="library.name"/>
+                    </t>
+                </select>
+                <label>
+                    <input type="checkbox" class="o_projector_filter"/>
+ Has Projector
+                </label>
+                <label>
+                    <input type="checkbox" class="o_whiteboard_filter"/>
+ Has Whiteboard
+                </label>
+                <label>
+                    <input type="checkbox" class="o_computers_filter"/>
+ Has Computers
+                </label>
+            </div>
+            <div id="calendar" class="o_calendar"/>
+            <div class="o_room_list">
+                <h3>Available Rooms</h3>
+                <ul>
+                    <t t-foreach="available_rooms" t-as="room">
+                        <li>
+                            <a href="#" t-att-data-room-id="room.id" class="o_book_room">
+                                <t t-esc="room.name"/>
+ (Capacity: <t t-esc="room.capacity"/>
+)
+                            <t t-if="room.has_projector">[Projector]</t>
+                            <t t-if="room.has_whiteboard">[Whiteboard]</t>
+                            <t t-if="room.has_computers">[Computers]</t>
+                        </a>
+                    </li>
+                </t>
+            </ul>
+        </div>
+        <!-- Booking Modal -->
+        <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Book Room</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">*</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="bookingForm">
+                            <div class="form-group">
+                                <label>Room</label>
+                                <input type="text" class="form-control o_room_name" readonly="readonly"/>
+                                <input type="hidden" class="o_room_id"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Start Time</label>
+                                <input type="datetime-local" class="form-control o_start_time" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>End Time</label>
+                                <input type="datetime-local" class="form-control o_end_time" required="required"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary o_submit_booking">Book</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Management Modal (for Library/Admin Users) -->
+        <div class="modal fade" id="manageModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Manage Reservation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">*</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <strong>Room:</strong>
+                            <span class="o_manage_room_name"/>
+                        </p>
+                        <p>
+                            <strong>User:</strong>
+                            <span class="o_manage_user_name"/>
+                        </p>
+                        <p>
+                            <strong>Start:</strong>
+                            <span class="o_manage_start_time"/>
+                        </p>
+                        <p>
+                            <strong>End:</strong>
+                            <span class="o_manage_end_time"/>
+                        </p>
+                        <p>
+                            <strong>Status:</strong>
+                            <span class="o_manage_status"/>
+                        </p>
+                        <input type="hidden" class="o_reservation_id"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success o_confirm_reservation" t-if="user_has_group('library_management.group_library_user') or user_has_group('library_management.group_admin_user')">Confirm</button>
+                        <button type="button" class="btn btn-danger o_cancel_reservation" t-if="user_has_group('library_management.group_library_user') or user_has_group('library_management.group_admin_user')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</t>
+</template>
+  

@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="library_management_templates" xml:space="preserve">
+    <t t-name="library_management.navbar_template">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center navigateToHome" href="#" t-on-click="_navigateToHome">
+                    <i class="fas fa-book-open mr-2"></i>
+                    <strong>
+                        Library Resource Hub
+                    </strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-1">
+                            <a class="nav-link btn btn-outline-light btn-sm rounded-pill navigateToHome" href="#" t-on-click="_navigateToHome" t-att-class="{'active': current_view === 'home'}">
+                                <i class="fas fa-home mr-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link btn btn-outline-light btn-sm rounded-pill navigateToBooks" href="#" t-on-click="_navigateToBooks" t-att-class="{'active': current_view === 'books'}">
+                                <i class="fas fa-book mr-1"></i> Books
+                            </a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link btn btn-outline-light btn-sm rounded-pill navigateToRooms" href="#" t-on-click="_navigateToRooms" t-att-class="{'active': current_view === 'rooms'}">
+                                <i class="fas fa-door-open mr-1 "></i> Study Rooms
+                            </a>
+                        </li>
+                        <li class="nav-item mx-1" t-if="!user_logged_in">
+                            <a class="nav-link btn btn-warning btn-sm rounded-pill navigateToLogin" href="#" t-on-click="navigateToLogin">
+                                <i class="fas fa-bookmark mr-1"></i> Login/Signup
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown mx-1" t-if="user_logged_in">
+                            <a class="nav-link dropdown-toggle btn btn-warning btn-sm rounded-pill" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user mr-1"></i>
+                                <t t-esc="username"/>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item navigateToMyList" href="#" t-on-click="_navigateToMyList">My List</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item logoutUser" href="#" t-on-click="_logoutUser">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </t>
+    <t t-name="library_management.footer_template">
+        <footer class="bg-dark text-white py-4 mt-auto">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <h5>
+                            <i class="fas fa-library"></i> Library Resource Hub
+                        </h5>
+                        <p class="text-muted">Access knowledge, explore worlds, discover possibilities.</p>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <h6>Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#" class="text-light">Hours and Locations</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-light">Research Tools</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-light">Ask a Librarian</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h6>Contact Us</h6>
+                        <ul class="list-unstyled">
+                            <li>
+                                <i class="fas fa-phone mr-2"></i>9848739827
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope mr-2"></i>donotdistubme@gmail.com
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker mr-2"></i> 25 charkhal nepal
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h6>Connect With Us</h6>
+                        <div class="d-flex mt-2">
+                            <a href="#" class="btn btn-outline-light btn-sm rounded-circle mr-2">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-light btn-sm rounded-circle mr-2">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-light btn-sm rounded-circle mr-2">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="bg-secondary"/>
+                <div class="text-center text-muted">
+                    <p class="mb-0">© 2025 Library Resource Management. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </t>
+    <!--index page-->
+    <t t-name="library_management.library_homepage_template">
+        <div class="d-flex flex-column min-vh-100">
+            <t t-call="library_management.navbar_template"/>
+            <div class="container flex-grow-1 py-4">
+                <t t-if="!isDataLoaded">
+                    <div class="text-center p-5">
+                        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <p class="mt-3 text-muted">Loading data...</p>
+                    </div>
+                </t>
+                <t t-if="current_view === 'home' and isDataLoaded">
+                    <div class="book_header mb-5">
+                        <div class="book-header-wrapper d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            <div class="book-header-text text-center text-md-left mb-4 mb-md-0">
+                                <h1 class="display-4 font-weight-bold text-primary">
+                                    Galaxy of Moon is an
+                                    <span class="highlighted-text text-info">Amazing Book</span> That Matters
+                                </h1>
+                                <p class="lead text-muted subheading">
+                                    This book takes you on an exciting journey of creative thinking and adventure.
+                                </p>
+                                <div class="button-group mt-4">
+                                    <a href="#" class="btn btn-primary btn-lg rounded-pill mr-2">View Book Details</a>
+                                    <a href="#" class="btn btn-outline-primary btn-lg rounded-pill">Get In Touch</a>
+                                </div>
+                            </div>
+                            <div class="book-header-image text-center">
+                                <img src="/library_management/static/description/icon.png" alt="Book Image" class="img-fluid rounded shadow-lg" style="max-height: 300px;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="new-books mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="text-primary">
+                                <i class="fas fa-star mr-2"></i>New Arrivals
+                            </h2>
+                            <a href="#" class="btn btn-sm btn-outline-primary navigateToBooks">View All
+                                <i class="fas fa-chevron-right ml-1"></i>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <t t-foreach="new_books || []" t-as="book">
+                                <div class="col-md-3 mb-4">
+                                    <div class="card h-100 shadow-sm border-0 rounded-lg overflow-hidden book-card">
+                                        <div class="position-relative">
+                                            <t t-if="book.cover_image and book.cover_image != ''">
+                                                <img t-att-src="'data:image/png;base64,' + book.cover_image" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Book Cover"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
+                                                    <i class="fas fa-book fa-3x text-muted"></i>
+                                                </div>
+                                            </t>
+                                            <div class="card-badge bg-info text-white px-2 py-1 small position-absolute top-0 start-0 m-2 rounded">
+                                                NEW
+                                            </div>
+                                        </div>
+                                        <div class="card-body pb-0">
+                                            <h5 class="card-title text-truncate">
+                                                <t t-esc="book.title or 'Untitled'"/>
+                                            </h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <t t-esc="book.author or 'Unknown Author'"/>
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                <span class="badge bg-light text-dark border">
+                                                    <t t-esc="book.published_date or 'N/A'"/>
+                                                </span>
+                                                <button class="newbook btn btn-sm btn-outline-primary view-details-btn onViewDetails" t-att-data-book-id="book.id" t-on-click="_onViewDetails">
+                                                    <i class="fas fa-plus"></i> View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="!(new_books and new_books.length)">
+                                <div class="col-12 text-center py-5">
+                                    <div class="display-1 text-muted">
+                                        <i class="fas fa-inbox"></i>
+                                    </div>
+                                    <h4 class="text-muted">No new arrivals yet</h4>
+                                    <p class="text-muted">Check back later for new books</p>
+                                </div>
+                            </t>
+                        </div>
+                    </section>
+                    <section class="popular-books mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="text-primary">
+                                <i class="fas fa-fire mr-2"></i>Most Popular
+                            </h2>
+                            <a href="#" class="btn btn-sm btn-outline-primary navigateToBooks">View All
+                                <i class="fas fa-chevron-right ml-1"></i>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <t t-foreach="popular_books || []" t-as="book">
+                                <div class="col-md-3 mb-4">
+                                    <div class="card h-100 shadow-sm border-0 rounded-lg overflow-hidden book-card">
+                                        <t t-if="book.cover_image and book.cover_image != ''">
+                                            <img t-att-src="'data:image/png;base64,' + book.cover_image" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Book Cover"/>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
+                                                <i class="fas fa-book fa-3x text-muted"></i>
+                                            </div>
+                                        </t>
+                                        <div class="card-body pb-0">
+                                            <h5 class="card-title text-truncate">
+                                                <t t-esc="book.title or 'Untitled'"/>
+                                            </h5>
+                                            <p class="card-text text-muted mb-1">
+                                                <t t-esc="book.author or 'Unknown Author'"/>
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="fas fa-users mr-1"></i>
+                                                    <t t-esc="book.borrow_count or 0"/>
+                                                </span>
+                                                <div class="rating text-warning small">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <i class="far fa-star"></i>
+                                                    <button class="newbook btn btn-sm btn-outline-primary view-details-btn onViewDetails" t-att-data-book-id="book.id" t-on-click="_onViewDetails">
+                                                        <i class="fas fa-plus"></i> View Details
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-if="!(popular_books and popular_books.length)">
+                                <div class="col-12 text-center py-5">
+                                    <div class="display-1 text-muted">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <h4 class="text-muted">No popular books yet</h4>
+                                    <p class="text-muted">Books will appear as they get borrowed</p>
+                                </div>
+                            </t>
+                        </div>
+                    </section>
+                    <section class="quick-links mb-5">
+                        <h2 class="text-primary mb-4">
+                            <i class="fas fa-link mr-2"></i>Quick Access
+                        </h2>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="card bg-light border-0 rounded-lg h-100 text-center p-4 shadow-sm">
+                                    <div class="text-primary mb-3">
+                                        <i class="fas fa-key fa-2x"></i>
+                                    </div>
+                                    <h5>Reserve Study Room</h5>
+                                    <p class="text-muted small">Book private study spaces</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card bg-light border-0 rounded-lg h-100 text-center p-4 shadow-sm">
+                                    <div class="text-success mb-3">
+                                        <i class="fas fa-history fa-2x"></i>
+                                    </div>
+                                    <h5>Renew Items</h5>
+                                    <p class="text-muted small">Extend your due dates</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card bg-light border-0 rounded-lg h-100 text-center p-4 shadow-sm">
+                                    <div class="text-info mb-3">
+                                        <i class="fas fa-calendar-alt fa-2x"></i>
+                                    </div>
+                                    <h5>Events Calendar</h5>
+                                    <p class="text-muted small">View library events</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card bg-light border-0 rounded-lg h-100 text-center p-4 shadow-sm">
+                                    <div class="text-warning mb-3">
+                                        <i class="fas fa-question-circle fa-2x"></i>
+                                    </div>
+                                    <h5>Help Center</h5>
+                                    <p class="text-muted small">Get assistance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </t>
+
+                <!--list of book -->
+                <t t-if="current_view === 'books' and isDataLoaded">
+                    <h1 class="mb-4 text-center text-success">
+                        <i class="fas fa-book-reader mr-2"></i>All Available Books
+                    </h1>
+                    <t t-if="all_books and all_books.length > 0">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                            <t t-foreach="all_books" t-as="book">
+                                <div class="col">
+                                    <div class="card h-100 border-0 shadow-sm rounded-lg book-card">
+                                        <div class="position-relative">
+                                            <t t-if="book.cover_image and book.cover_image != ''">
+                                                <img t-att-src="'data:image/png;base64,' + book.cover_image" class="card-img-top" style="height: 220px; object-fit: cover;" alt="Book Cover"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
+                                                    <i class="fas fa-book fa-3x text-muted"></i>
+                                                </div>
+                                            </t>
+                                            <div t-att-class="book.is_available ? 'card-badge bg-success' : 'card-badge bg-danger'" class="text-white px-2 py-1 small position-absolute top-0 start-0 m-2 rounded">
+                                                <t t-esc="book.is_available ? 'Available' : 'Unavailable'"/>
+                                            </div>
+                                        </div>
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title text-success text-truncate">
+                                                <t t-esc="book.title"/>
+                                            </h5>
+                                            <p class="card-text text-muted mb-1">by
+                                                <t t-esc="book.author"/>
+                                            </p>
+                                            <div class="mt-auto d-flex flex-wrap justify-content-between align-items-center">
+                                                <button class="newbook btn btn-sm btn-outline-primary view-details-btn onViewDetails" t-att-data-book-id="book.id" t-on-click="_onViewDetails">
+                                                    <i class="fas fa-plus"></i> View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                    <t t-else="">
+                    </t>
+                </t>
+                <!-- Rooms View -->
+                <t t-if="current_view === 'rooms' and isDataLoaded">
+                    <h1 class="mb-4 text-center text-primary">
+                        <i class="bi bi-door-closed me-2"></i>Available Rooms
+                    </h1>
+                    <t t-if="all_rooms and all_rooms.length > 0">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                            <t t-foreach="all_rooms" t-as="room">
+                                <div class="col">
+                                    <div class="card h-100 shadow-sm m-2 mb-1 hover-shadow transition-all">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                                <h5 class="card-title mb-0 fw-bold text-truncate">
+                                                    <t t-esc="room.name"/>
+                                                </h5>
+                                                <span t-att-class="'badge ' + 
+                                                        (room.status === 'available' ? 'bg-success' : 
+                                                        (room.status === 'reserved' ? 'bg-warning text-dark' : 'bg-danger'))">
+                                                    <t t-esc="room.status.charAt(0).toUpperCase() + room.status.slice(1)"/>
+                                                </span>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <p class="mb-1 text-muted">
+                                                    <i class="bi bi-people me-2"></i>
+                                    Capacity: <t t-esc="room.capacity"/>
+                                                </p>
+                                                <p class="mb-1 text-muted">
+                                                    <i class="bi bi-building me-2"></i>
+                                                    <t t-esc="room.library_name"/>
+                                                </p>
+                                                <p class="mb-1 text-muted text-truncate-2" style="--bs-text-truncate-line: 2;">
+                                                    <t t-esc="room.description"/>
+                                                </p>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <t t-if="room.has_projector">
+                                                        <span class="badge bg-light text-dark border">
+                                                            <i class="bi bi-projector me-1"></i> Projector
+                                                        </span>
+                                                    </t>
+                                                    <t t-if="room.has_whiteboard">
+                                                        <span class="badge bg-light text-dark border">
+                                                            <i class="bi bi-easel me-1"></i> Whiteboard
+                                                        </span>
+                                                    </t>
+                                                    <t t-if="room.has_computers">
+                                                        <span class="badge bg-light text-dark border">
+                                                            <i class="bi bi-pc me-1"></i> Computers
+                                                        </span>
+                                                    </t>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-auto">
+                                                <button class="btn btn-primary w-100 reserve-room" t-att-data-room-id="room.id" t-if="room.status === 'available' and user_logged_in">
+                                                    <i class="bi bi-calendar-plus me-2"></i> Reserve Now
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="text-center py-5">
+                            <i class="bi bi-door-closed display-5 text-muted"></i>
+                            <p class="text-muted mt-3">No rooms available at this time.</p>
+                        </div>
+                    </t>
+                </t>
+
+                <!-- My List View -->
+                <t t-if="current_view === 'my_list' and isDataLoaded">
+                    <h1 class="text-success mb-4 text-center">
+                        <i class="fas fa-list mr-2"></i>My List
+                    </h1>
+                    <button class="btn btn-outline-secondary mb-3 navigateToBooks">
+                        <i class="fas fa-book"></i> Back to Books
+                    </button>
+                    <h3 class="text-success mb-3">Borrowed Books</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Borrow Date</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="borrowed_books and borrowed_books.length > 0">
+                                <t t-foreach="borrowed_books" t-as="loan">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="loan.book_title"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="loan.book_author"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="loan.borrow_date"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="loan.due_date"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <tr>
+                                    <td colspan="4" class="text-muted text-center">No books borrowed.</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <h3 class="text-success mb-3">Reserved Rooms</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Room Name</th>
+                                <th>Reservation Date</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="reserved_rooms and reserved_rooms.length > 0">
+                                <t t-foreach="reserved_rooms" t-as="reservation">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="reservation.room_name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="reservation.reservation_date"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="reservation.start_time"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="reservation.end_time"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <tr>
+                                    <td colspan="4" class="text-muted text-center">No rooms reserved.</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+
+                <t t-if="current_view === 'profile' and isDataLoaded">
+                    <h1 class="mb-4 text-center text-primary">
+                        <i class="fas fa-user-circle mr-2"></i>User Profile
+                    </h1>
+                    <div class="card border-0 shadow-sm rounded-lg">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">
+                                <t t-esc="user_profile.name"/>
+                            </h5>
+                            <p class="card-text">
+                                <i class="fas fa-envelope mr-1"></i>Email:
+                                <t t-esc="user_profile.email"/>
+                            </p>
+                            <p class="card-text">
+                                <i class="fas fa-user mr-1"></i>Login:
+                                <t t-esc="user_profile.login"/>
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </div>
+            <t t-call="library_management.footer_template"/>
+        </div>
+    </t>
+</templates>

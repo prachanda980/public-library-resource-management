@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="library_management.DashboardClientAction">
+        <div class="d-flex flex-column min-vh-100">
+            <div class="container-fluid p-4" style="height: 80vh; overflow-y: auto;">
+                <div class="row mb-3">
+                    <div class="col">
+                        <h2>Librarian Dashboard</h2>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary o_refresh_dashboard">Refresh</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Borrowing trends for books -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Book Borrowing Trends (Last 4 Weeks)</div>
+                            <div class="card-body">
+                                <canvas id="borrowingTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Borrowing trends for rooms -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">Room Reservation Trends (Last 4 Weeks)</div>
+                            <div class="card-body">
+                                <canvas id="roomBorrowingTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book usage gauge -->
+                    <div class="col-md-3">
+                        <div class="card mt-3">
+                            <div class="card-header">Book Usage</div>
+                            <div class="card-body">
+                                <div id="bookUsageGauge" style="width:100%;height:200px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room usage gauge -->
+                    <div class="col-md-3">
+                        <div class="card mt-3">
+                            <div class="card-header">Room Usage</div>
+                            <div class="card-body">
+                                <div id="roomUsageGauge" style="width:100%;height:200px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t t-call="library_management.footer_template"/>
+        </div>
+    </t>
+
+    <!-- Add Room Borrowing Trends Chart -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Room Borrowing Trends (Last 4 Weeks)</div>
+            <div class="card-body">
+                <canvas id="roomBorrowingTrendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</templates>

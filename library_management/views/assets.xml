@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="index" name="Library Management Client Assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <link rel="stylesheet" type="text/css" href="/library_management/static/src/css/landing.css" />
+        <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <!-- <link rel="stylesheet" type="text/css"
+        href="/library_management/static/src/lib/bootstrap.min.css"/> -->
+        <link rel="stylesheet" type="text/css"
+          href="/library_management/static/src/css/book_details.css" />
+        <link rel="stylesheet" type="text/css"
+          href="/library_management/static/src/lib/fullcalendar.min.css" />
+        <script type="text/javascript" src="/library_management/static/src/lib/bootstrap.min.js" />
+        <script type="text/javascript" src="/library_management/static/src/lib/chart.min.js" />
+        <script type="text/javascript" src="/library_management/static/src/lib/raphael.min.js" />
+        <script type="text/javascript" src="/library_management/static/src/lib/justgage.js" />
+
+        <script type="text/javascript" src="/library_management/static/src/lib/moment.min.js" />
+        <script type="text/javascript"
+          src="/library_management/static/src/js/library_dashboard_client_action.js" />
+        <script type="text/javascript"
+          src="/library_management/static/src/js/library_homepage_client.js" />
+        <script type="text/javascript"
+          src="/library_management/static/src/js/library_book_details_client_action.js" />
+        <script type="text/javascript" src="/library_management/static/src/js/userauth.js" />
+        <script type="text/javascript"
+          src="/library_management/static/src/js/barcode_borrow_wizard.js" />
+      </xpath>
+    </template>
+  </data>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="library_management.authpage">
+        <div id="library_auth_container">
+            <!-- Login Form -->
+            <div id="library_login">
+                <h2>Login</h2>
+                <form id="library_login_form">
+                    <input type="text" name="login" placeholder="Email" required="true"/><br/>
+                    <input type="password" name="password" placeholder="Password" required="true"/><br/>
+                    <span id="login_error" style="color:red;"></span><br/>
+                    <button type="submit">Login</button>
+                </form>
+                <a href="#" id="show_signup">Don’t have an account? Sign up</a>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="library_signup" style="display:none;">
+                <h2>Sign Up</h2>
+                <form id="library_signup_form">
+                    <input type="text" name="name" placeholder="Name" required="true"/><br/>
+                    <input type="text" name="login" placeholder="Email" required="true"/><br/>
+                    <input type="password" name="password" placeholder="Password" required="true"/><br/>
+                    <span id="signup_error" style="color:red;"></span><br/>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <a href="#" id="show_login">Already have an account? Login</a>
+            </div>
+
+            <!-- Dashboard -->
+            <div id="library_dashboard" style="display:none;">
+                <h2>Welcome!</h2>
+                <button id="logout_button">Logout</button>
+            </div>
+        </div>
+    </t>
+</templates>

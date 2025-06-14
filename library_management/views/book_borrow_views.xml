@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="book_borrow_tree_view" model="ir.ui.view">
+            <field name="name">book.borrow.tree</field>
+            <field name="model">book.borrow</field>
+            <field name="arch" type="xml">
+                <tree string="Book Borrow Records">
+                    <field name="borrow_date"/>
+                    <field name="book_id"/>
+                    <field name="borrower_id"/>
+                    <field name="due_date"/>
+                    <field name="return_date"/>
+                    <field name="status"/>
+                    <field name="overdue_days"/>
+                    <field name="user_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_book_borrow" model="ir.actions.act_window">
+            <field name="name">Book Borrows</field>
+            <field name="res_model">book.borrow</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create new book borrow records.
+                </p>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

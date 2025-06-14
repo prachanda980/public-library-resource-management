@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_library_root" name="Library Management" sequence="100" groups="library_management.group_normal_user,library_management.group_librarian_user,library_management.group_admin_user" />
+
+        <menuitem id="library_branch_menu" name="Branches" parent="menu_library_root" action="library_management.library_branch_action" sequence="1" groups="library_management.group_librarian_user,library_management.group_admin_user" />
+
+        <menuitem id="menu_book_borrow" name="Borrows book" parent="menu_library_root" action="library_management.action_book_borrow" sequence="20" groups="library_management.group_normal_user,library_management.group_librarian_user,library_management.group_admin_user"/>
+
+        <menuitem id="menu_library_books" name="Books" parent="menu_library_root" action="library_management.action_library_book" sequence="10" groups="library_management.group_normal_user,library_management.group_librarian_user,library_management.group_admin_user" />
+
+        <menuitem id="menu_library_rooms" name="Rooms" parent="menu_library_root" action="library_management.action_library_room" sequence="20" groups="library_management.group_normal_user,library_management.group_librarian_user,library_management.group_admin_user" />
+
+        <menuitem id="menu_library_room_reservation" name="Reservation List" parent="menu_library_root" action="library_management.action_room_reservations" sequence="25" groups="library_management.group_normal_user,library_management.group_librarian_user,library_management.group_admin_user" />
+
+        <menuitem id="menu_book_return_history" name="Book Return History" parent="menu_library_root" action="library_management.action_book_return_history" sequence="29" groups="library_management.group_librarian_user,library_management.group_admin_user"/>
+
+        <record id="dashboard_view" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">library_management.dashboard_client_action</field>
+            <field name="target">current</field>
+        </record>
+        <menuitem id="menu_borrow_reserve" name="Dashboard" parent="menu_library_root" action="dashboard_view" sequence="30" groups="library_management.group_normal_user,library_management.group_librarian_user,library_management.group_admin_user"/>
+
+        <record id="home_page_action" model="ir.actions.client">
+            <field name="name">Library Hub</field>
+            <field name="tag">library_management.homepage_client_action</field>
+            <field name="target">fullscreen</field>
+        </record>
+        <menuitem id="home_page_menu" name="Library Hub" action="home_page_action" sequence="33" groups="library_management.group_normal_user,library_management.group_librarian_user,library_management.group_admin_user"/>
+
+        <record id="action_library_auth" model="ir.actions.client">
+            <field name="name">Library Auth</field>
+            <field name="tag">library_management.LibraryAuthClientAction</field>
+        </record>
+        <menuitem id="menu_library_auth" name="Library Login" action="action_library_auth" sequence="1" groups="base.group_public"/>
+    </data>
+</odoo>

@@ -1,0 +1,51 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="library_management.BarcodeBorrowWizardTemplate">
+        <div class="modal fade barcode-borrow-wizard" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Borrow Book by Barcode</h4>
+                        <button type="button" class="close" t-on-click="_onWizardCancel">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="barcode-borrow-wizard-form">
+                            <div class="form-group">
+                                <label for="barcode">Barcode</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="barcode" t-att-value="barcode or ''" t-att-autofocus="'1'"/>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-secondary scan-barcode">Scan</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group camera-preview" t-att-style="'display: none;'">
+                                <video id="barcode-scanner" width="100%" playsinline="true"></video>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-danger stop-scan" t-att-style="'display: none;'">Stop Scanning</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="book_id">Book Title</label>
+                                <input type="text" class="form-control" name="book_title" t-att-value="book_title or ''" t-att-readonly="'1'"/>
+                                <input type="hidden" name="book_id" t-att-value="str(book_id) if book_id else ''"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="borrower_id">Borrower</label>
+                                <input type="text" class="form-control" name="borrower_name" t-att-value="borrower_name or ''" t-att-readonly="'1'"/>
+                                <input type="hidden" name="borrower_id" t-att-value="str(borrower_id) if borrower_id else ''"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="due_date">Due Date</label>
+                                <input type="datetime-local" class="form-control" name="due_date" t-att-value="default_due_date or ''" t-att-readonly="'1'"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary barcode-borrow-wizard-submit">Borrow</button>
+                        <button type="button" class="btn btn-secondary barcode-borrow-wizard-cancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

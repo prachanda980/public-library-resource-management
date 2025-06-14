@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Room Reservation Wizard Form View -->
+        <record id="view_room_reservation_wizard_form" model="ir.ui.view">
+            <field name="name">room.reservation.wizard.form</field>
+            <field name="model">room.reservation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Reserve Room">
+                    <group>
+                        <field name="room_id" options="{'no_create': True}"/>
+                        <field name="library_id" options="{'no_create': True}" readonly="1"/>
+                        <field name="user_id" options="{'no_create': True}"/>
+                        <field name="start_time" widget="datetime"/>
+                        <field name="end_time" widget="datetime"/>
+                        <field name="reservation_made" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_reserve" string="Reserve" type="object" class="btn-primary" attrs="{'invisible': [('reservation_made', '=', True)]}"/>
+                        <button string="Reserved" class="btn-primary" attrs="{'invisible': [('reservation_made', '=', False)]}" special="cancel"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" attrs="{'invisible': [('reservation_made', '=', True)]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action for Room Reservation Wizard -->
+        <record id="action_room_reservation_wizard" model="ir.actions.act_window">
+            <field name="name">Reserve Room</field>
+            <field name="res_model">room.reservation.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_room_reservation_wizard_form"/>
+        </record>
+
+        <!-- Room Reservation Form View -->
+        <record id="view_room_reservation_form" model="ir.ui.view">
+            <field name="name">room.reservation.form</field>
+            <field name="model">room.reservation</field>
+            <field name="arch" type="xml">
+                <form string="Room Reservation">
+                    <header>
+                        <button name="action_confirm" string="Confirm" type="object" class="btn-primary" states="pending"/>
+                        <button name="action_cancel" string="Cancel" type="object" class="btn-secondary" states="pending"/>
+                        <field name="status" widget="statusbar" statusbar_visible="pending,confirmed,cancelled"/>
+                    </header>
+                    <group>
+                        <field name="room_id"/>
+                        <field name="library_id" readonly="1"/>
+                        <field name="user_id"/>
+                        <field name="start_time" widget="datetime"/>
+                        <field name="end_time" widget="datetime"/>
+                        <field name="duration"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Room Reservation Tree View -->
+        <record id="view_room_reservation_tree" model="ir.ui.view">
+            <field name="name">room.reservation.tree</field>
+            <field name="model">room.reservation</field>
+            <field name="arch" type="xml">
+                <tree string="Room Reservations">
+                    <field name="room_id"/>
+                    <field name="library_id"/>
+                    <field name="user_id"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="duration"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Room Reservation Calendar View -->
+        <record id="view_room_reservation_calendar" model="ir.ui.view">
+            <field name="name">room.reservation.calendar</field>
+            <field name="model">room.reservation</field>
+            <field name="arch" type="xml">
+                <calendar string="Room Reservations" date_start="start_time" date_stop="end_time" color="room_id">
+                    <field name="room_id"/>
+                    <field name="user_id"/>
+                    <field name="status"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Action for Room Reservations -->
+        <record id="action_room_reservations" model="ir.actions.act_window">
+            <field name="name">Room Reservations</field>
+            <field name="res_model">room.reservation</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="target">current</field>
+        </record>
+    </data>
+</odoo>

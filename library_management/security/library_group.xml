@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Library Management Category -->
+        <record id="module_category_library_management" model="ir.module.category">
+            <field name="name">Library Management</field>
+        </record>
+
+        <!-- Normal Users Group -->
+        <record id="group_normal_user" model="res.groups">
+            <field name="name">Normal User</field>
+            <field name="category_id" ref="library_management.module_category_library_management"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Librarian Users Group -->
+        <record id="group_librarian_user" model="res.groups">
+            <field name="name">Librarian</field>
+            <field name="category_id" ref="library_management.module_category_library_management"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Admin Users Group -->
+        <record id="group_admin_user" model="res.groups">
+            <field name="name">Admin User</field>
+            <field name="category_id" ref="library_management.module_category_library_management"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
+</odoo>

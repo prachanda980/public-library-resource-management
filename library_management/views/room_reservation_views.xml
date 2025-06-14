@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Room Reservation Tree View -->
+        <record id="view_room_reservation_tree" model="ir.ui.view">
+            <field name="name">room.reservation.tree</field>
+            <field name="model">room.reservation</field>
+            <field name="arch" type="xml">
+                <tree string="Room Reservations">
+                    <field name="room_id"/>
+                    <field name="library_id"/>
+                    <field name="user_id"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                    <field name="duration"/>
+                    <field name="status"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+            <field name="groups_id" eval="[(4, ref('library_management.group_admin_user')), (4, ref('library_management.group_librarian_user')), (4, ref('library_management.group_normal_user'))]"/>
+        </record>
+
+    
+        <!-- Action for Room Reservations -->
+        <record id="action_room_reservations" model="ir.actions.act_window">
+            <field name="name">Room Reservations</field>
+            <field name="res_model">room.reservation</field>
+            <field name="view_mode">tree,calendar</field>
+            <field name="target">current</field>
+            <field name="domain">[('status', '!=', 'cancelled')]</field>
+            <field name="context">
+                {
+                    'default_company_id': False,
+                    'search_default_library_id': [('library_id', '=', False)],
+                    'search_default_user_id': [('user_id', '=', False)]
+                }
+            </field>
+            <field name="groups_id" eval="[(4, ref('library_management.group_normal_user')), (4, ref('library_management.group_librarian_user')), (4, ref('library_management.group_admin_user'))]"/>
+        </record>
+    </data>
+</odoo>

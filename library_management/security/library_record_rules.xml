@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Library Branch Rules -->
+        <record id="library_branch_rule_admin" model="ir.rule">
+            <field name="name">Library Branch: Admin Global Access</field>
+            <field name="model_id" ref="library_management.model_library_branch"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="library_branch_rule_librarian" model="ir.rule">
+            <field name="name">Library Branch: Librarian (Assigned)</field>
+            <field name="model_id" ref="library_management.model_library_branch"/>
+            <field name="domain_force">[('id', '=', user.assigned_library_id.id)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="library_branch_rule_normal_user" model="ir.rule">
+            <field name="name">Library Branch: Normal User Global Read</field>
+            <field name="model_id" ref="library_management.model_library_branch"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Library Book Rules -->
+        <record id="book_rule_admin" model="ir.rule">
+            <field name="name">Books: Admin Global Access</field>
+            <field name="model_id" ref="library_management.model_library_book"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="book_rule_librarian_assigned" model="ir.rule">
+            <field name="name">Books: Librarian (Assigned Library)</field>
+            <field name="model_id" ref="library_management.model_library_book"/>
+            <field name="domain_force">[('library_branch_id', '=', user.library_id.id)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="book_rule_normal_user_global_read" model="ir.rule">
+            <field name="name">Books: Normal User Global Read</field>
+            <field name="model_id" ref="library_management.model_library_book"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Library Room Rules -->
+        <record id="room_rule_admin" model="ir.rule">
+            <field name="name">Rooms: Admin Global Access</field>
+            <field name="model_id" ref="library_management.model_library_room"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="room_rule_librarian_assigned" model="ir.rule">
+            <field name="name">Rooms: Librarian (Assigned Library)</field>
+            <field name="model_id" ref="library_management.model_library_room"/>
+            <field name="domain_force">[('library_branch_id', '=', user.library_id.id)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="room_rule_normal_user_global_read" model="ir.rule">
+            <field name="name">Rooms: Normal User Global Read</field>
+            <field name="model_id" ref="library_management.model_library_room"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Book Borrow Rules -->
+        <record id="borrow_rule_admin" model="ir.rule">
+            <field name="name">Book Borrows: Admin Global Access</field>
+            <field name="model_id" ref="library_management.model_book_borrow"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="borrow_rule_librarian_assigned" model="ir.rule">
+            <field name="name">Book Borrows: Librarian (Assigned Library)</field>
+            <field name="model_id" ref="library_management.model_book_borrow"/>
+            <field name="domain_force">[('book_id.library_branch_id', '=', user.library_id.id)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="borrow_rule_normal_user_self" model="ir.rule">
+            <field name="name">Book Borrow: Normal Users (Self)</field>
+            <field name="model_id" ref="library_management.model_book_borrow"/>
+            <field name="domain_force">[('borrower_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Room Reservation Rules -->
+        <record id="reservation_rule_admin" model="ir.rule">
+            <field name="name">Room Reservations: Admin Global Access</field>
+            <field name="model_id" ref="library_management.model_room_reservation"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="reservation_rule_librarian_assigned" model="ir.rule">
+            <field name="name">Room Reservations: Librarian (Assigned Library)</field>
+            <field name="model_id" ref="library_management.model_room_reservation"/>
+            <field name="domain_force">[('room_id.library_branch_id', '=', user.assigned_library_id.id)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="reservation_rule_normal_user_self" model="ir.rule">
+            <field name="name">Room Reservation: Normal Users (Self)</field>
+            <field name="model_id" ref="library_management.model_room_reservation"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <!-- Res Company Rules -->
+        <record id="company_rule_admin" model="ir.rule">
+            <field name="name">Res Company: Admin Global Access</field>
+            <field name="model_id" ref="base.model_res_company"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="company_rule_librarian_read" model="ir.rule">
+            <field name="name">Res Company: Librarian Read</field>
+            <field name="model_id" ref="base.model_res_company"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+        <record id="company_rule_normal_user_read" model="ir.rule">
+            <field name="name">Res Company: Normal User Read</field>
+            <field name="model_id" ref="base.model_res_company"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Res Partner Rules -->
+        <record id="partner_rule_admin" model="ir.rule">
+            <field name="name">Res Partner: Admin Global Access</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="partner_rule_librarian_read" model="ir.rule">
+            <field name="name">Res Partner: Librarian Read</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+        <record id="partner_rule_normal_user_read" model="ir.rule">
+            <field name="name">Res Partner: Normal User Read</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Res Users Rules -->
+        <record id="users_rule_admin" model="ir.rule">
+            <field name="name">Res Users: Admin Global Access</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_admin_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+        <record id="users_rule_librarian_read" model="ir.rule">
+            <field name="name">Res Users: Librarian Read</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_librarian_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+        <record id="users_rule_normal_user_read" model="ir.rule">
+            <field name="name">Res Users: Normal User Read</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('library_management.group_normal_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+    </data>
+</odoo>

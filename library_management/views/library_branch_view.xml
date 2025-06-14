@@ -1,0 +1,167 @@
+<odoo>
+    <record id="view_library_branch_tree" model="ir.ui.view">
+        <field name="name">library.branch.tree</field>
+        <field name="model">library.branch</field>
+        <field name="arch" type="xml">
+            <tree string="Library Branches" decoration-info="state == 'draft'" decoration-danger="state == 'closed'">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="book_count" string="Books"/>
+                <field name="room_count" string="Rooms"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_library_branch_form" model="ir.ui.view">
+        <field name="name">library.branch.form</field>
+        <field name="model">library.branch</field>
+        <field name="arch" type="xml">
+            <form string="Library Branch">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <field name="active" invisible="1"/>
+                    <button name="action_archive" type="object" string="Archive" class="oe_highlight" attrs="{'invisible': [('active','=',False)]}"/>
+                    <button name="action_unarchive" type="object" string="Unarchive" attrs="{'invisible': [('active','=',True)]}"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="address" placeholder="Full library address..."/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Statistics" name="statistics">
+                            <group>
+                                <group string="Counts">
+                                    <field name="book_count" readonly="1"/>
+                                    <field name="room_count" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Librarians" name="librarians">
+                            <field name="librarian_ids" widget="many2many_tags" options="{'no_create': False}">
+                                <tree >
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                    <field name="login"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_branch_kanban" model="ir.ui.view">
+        <field name="name">library.branch.kanban</field>
+        <field name="model">library.branch</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="company_id">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="book_count"/>
+                <field name="room_count"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                    <span class="pull-right">
+                                        <field name="state" widget="label_selection" options="{'classes': {'draft': 'default', 'open': 'success', 'closed': 'danger'}}"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="address"/>
+                                    <div class="text-muted">
+                                        <i class="fa fa-phone"/>
+                                        <field name="phone"/>
+                                    </div>
+                                    <div class="text-muted">
+                                        <i class="fa fa-envelope"/>
+                                        <field name="email"/>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span class="oe_kanban_status">
+                                            <i class="fa fa-book"/>
+                                            <field name="book_count"/>
+ Books
+                                        </span>
+                                        <span class="oe_kanban_status">
+                                            <i class="fa fa-home"/>
+                                            <field name="room_count"/>
+ Rooms
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_library_branch_search" model="ir.ui.view">
+        <field name="name">library.branch.search</field>
+        <field name="model">library.branch</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="address"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="company_id"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="open" string="Open" domain="[('state', '=', 'open')]"/>
+                <filter name="closed" string="Closed" domain="[('state', '=', 'closed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="library_branch_action" model="ir.actions.act_window">
+        <field name="name">Library Branches</field>
+        <field name="res_model">library.branch</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first library branch!
+            </p>
+            <p>
+                Manage your library branches here. You can track books and rooms for each branch.
+            </p>
+        </field>
+    </record>
+</odoo>

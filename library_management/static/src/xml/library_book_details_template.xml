@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="library_management_templates" xml:space="preserve">
+
+    <t t-name="library_management.BookManagementTemplate">
+        <div class="o_book_management d-flex flex-column min-vh-100">
+            <div class="container flex-grow-1 py-4">
+                <button class="btn btn-secondary back-btn mb-3">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+
+                <div class="card border-0 shadow-sm rounded-lg mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img class="book-cover-img img-fluid rounded" style="max-height: 300px; object-fit: cover;" src="/library_management/static/description/icon.png" alt="Book Cover"/>
+                            </div>
+                            <div class="col-md-8">
+                                <h1 class="card-title text-primary">
+                                    <span id="book_title">Loading...</span>
+                                </h1>
+                                <p class="card-text">
+                                    <strong>Author:</strong>
+                                    <span id="book_author">Loading...</span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>ISBN:</strong>
+                                    <span id="book_isbn">Loading...</span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Genre:</strong>
+                                    <span id="book_genre">Loading...</span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Published:</strong>
+                                    <span id="book_published_date">Loading...</span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Availability:</strong>
+                                    <span id="book_status" class="badge">Loading...</span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Borrow Status:</strong>
+                                    <span id="borrow_status" class="badge">Loading...</span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Overdue Days:</strong>
+                                    <span id="overdue_days">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="o_borrow_controls text-center">
+                    <button class="btn btn-info barcode-borrow-btn">Quick Borrow by Barcode</button>
+                    <button class="btn btn-primary borrow-btn me-2" disabled="disabled">
+                        <i class="fas fa-book"></i> Borrow Book
+                    </button>
+                    <button class="btn btn-success return-btn me-2" disabled="disabled">
+                        <i class="fas fa-undo"></i> Return Book
+                    </button>
+                    <button class="btn btn-secondary cancel-btn">Cancel</button>
+
+                    <div id="login_message" class="mt-3" style="display: none;">
+                        <p class="text-muted mb-3">Please log in to borrow this book.</p>
+                        <a href="/web/login" class="btn btn-warning me-2">Login</a>
+                    </div>
+
+                    <div id="error_message" class="alert alert-danger mt-3" style="display: none;"></div>
+                </div>
+            </div>
+            <t t-call="library_management.footer_template"/>
+        </div>
+    </t>
+</templates>

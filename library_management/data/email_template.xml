@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Email Template for Room Reservation Confirmation -->
+        <record id="reservation_confirmation_email" model="mail.template">
+            <field name="name">Room Reservation Confirmation</field>
+            <field name="model_id" ref="library_management.model_room_reservation"/>
+            <field name="email_from">${object.company_id.email or 'no-reply@library.com'}</field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="subject">Reservation Confirmed for ${object.room_id.name}</field>
+            <field name="body_html"><![CDATA[
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2>Room Reservation Confirmed</h2>
+                    <p>Dear ${object.user_id.name},</p>
+                    <p>Your reservation for the room <strong>${object.room_id.name}</strong> has been confirmed. Below are the details:</p>
+                    <ul>
+                        <li><strong>Library Branch:</strong> ${object.library_id.name}</li>
+                        <li><strong>Start Time:</strong> ${object.start_time.strftime('%Y-%m-%d %H:%M:%S')}</li>
+                        <li><strong>End Time:</strong> ${object.end_time.strftime('%Y-%m-%d %H:%M:%S')}</li>
+                        <li><strong>Duration:</strong> ${object.duration} hours</li>
+                        <li><strong>Status:</strong> ${object.status}</li>
+                    </ul>
+                    <p>Thank you for using our library services. If you have any questions, please contact us at ${object.company_id.email or 'support@library.com'}.</p>
+                    <p>Best regards,<br/>The Library Management Team</p>
+                </div>
+            ]]></field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>
