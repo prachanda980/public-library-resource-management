@@ -68,15 +68,6 @@ It supports Odoo’s **multi-company architecture** to ensure each library opera
 - **Database**: PostgreSQL
 - **Integration**: Optional API support, Barcode Scanner Compatibility
 
----
-
-## 📈 Optional Features (If Time Allows)
-
-- 📊 **Librarian Dashboards** with charts, gauges, and timelines
-- 🗺️ **Map-Based Library Locator** for patrons
-- 🔐 **User Portals** per library for personal access
-
----
 
 ## 📂 Installation
 
