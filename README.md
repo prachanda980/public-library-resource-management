@@ -59,4 +59,4 @@ It supports Odoo’s **multi-company architecture** to ensure each library opera
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/public-library-resource-management.git
+git clone https://github.com/prachanda980/public-library-resource-management.git
