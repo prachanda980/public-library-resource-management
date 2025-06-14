@@ -12,22 +12,7 @@ This system is designed to streamline library operations, enhance user experienc
 - **Library Users**: Manage borrowing and reservations for a specific library.
 - **Admin Users** (Superusers): Oversee all libraries, users, and settings.
 
-It supports Odoo’s **multi-company architecture** to ensure each library operates independently while still being centrally manageable. The system includes barcode-based book borrowing, real-time availability tracking, and role-based access control.
-
----
-
-## 🎯 Objectives
-
-- ✅ CRUD operations for books and media across multiple libraries.
-- ✅ Real-time availability of books and study rooms.
-- ✅ Barcode scanning for fast, error-free borrowing.
-- ✅ Study room reservation interface with conflict prevention.
-- ✅ Role-based user management with access controls.
-- ✅ Data separation using Odoo’s multi-company setup.
-- ✅ Visual dashboards using QWeb and Client Actions.
-- ✅ (Optional) Map-based library locator and user portals.
-
----
+It supports Odoo’s **multi-company architecture** to ensure each library operates independently while still being centrally manageable. The system includes barcode-based book borrowing, real-time availability tracking.
 
 ## ✨ Key Features
 
