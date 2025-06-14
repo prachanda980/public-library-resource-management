@@ -8,8 +8,8 @@ A user-friendly, scalable, and modular system built with **Odoo 13** to help pub
 
 This system is designed to streamline library operations, enhance user experience, and support three distinct user roles:
 
-- **Normal Users** (Patrons): Can search, borrow books, and reserve study rooms.
-- **Library Users** (Staff): Manage borrowing and reservations for a specific library.
+- **Normal Users** : Can search, borrow books, and reserve study rooms.
+- **Library Users**: Manage borrowing and reservations for a specific library.
 - **Admin Users** (Superusers): Oversee all libraries, users, and settings.
 
 It supports Odoo’s **multi-company architecture** to ensure each library operates independently while still being centrally manageable. The system includes barcode-based book borrowing, real-time availability tracking, and role-based access control.
@@ -45,13 +45,11 @@ It supports Odoo’s **multi-company architecture** to ensure each library opera
 ### 🏫 Study Room Reservation
 - Calendar-based interface with time-slot booking
 - Auto-conflict checks for overlapping bookings
-- Confirmation notifications
 - Admin and Library User control over reservations
 
-### 📦 Barcode-Based Borrowing System
-- Barcode scanning or manual entry
+### 📦 Borrowing System
+- manual entry
 - Auto-fill user and book data
-- Borrow confirmation with return date
 - Error handling for invalid or unavailable books
 
 ### 🏢 Multi-Company Architecture
